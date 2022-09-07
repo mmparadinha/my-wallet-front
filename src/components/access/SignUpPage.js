@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 
-function LogInPage() {
+function SignUpPage() {
     return (
         <Main>
             <h1>MyWallet</h1>
@@ -12,13 +12,22 @@ function LogInPage() {
                 <Input
                     // disabled={entrando}
                     // required
-                    type='email'
+                    type='text'
                     // name='email'
+                    // value={login.password}
+                    // onChange={atualizarInput}
+                    placeholder='Nome'
+                />
+                <Input 
+                    // disabled={entrando}
+                    // required
+                    type='email'
+                    // name='password'
                     // value={login.password}
                     // onChange={atualizarInput}
                     placeholder='E-mail'
                 />
-                <Input
+                <Input 
                     // disabled={entrando}
                     // required
                     type='password'
@@ -27,15 +36,28 @@ function LogInPage() {
                     // onChange={atualizarInput}
                     placeholder='Senha'
                 />
-                <Button type='submit' /* disabled={entrando}>{entrando ? <Loading /> : 'Entrar'} */>Entrar</Button>
+                <Input 
+                    // disabled={entrando}
+                    // required
+                    type='password'
+                    // name='password'
+                    // value={login.password}
+                    // onChange={atualizarInput}
+                    placeholder='Confirme a senha'
+                />
+                <Button type='submit' /* disabled={entrando}>{entrando ? <Loading /> : 'Entrar'} */>Cadastrar</Button>                    
             </Box>
 
-            <Link to="/sign-up"><h2>Primeira vez? Cadastre-se</h2></Link>
+            <Link to="/">
+                <h2>
+                    Já tem uma conta? Entre agora
+                </h2>
+            </Link>
         </Main>
     );
 }
 
-export default LogInPage;
+export default SignUpPage;
 
 const Main = styled.div`
     background-color: purple;
@@ -69,7 +91,7 @@ const Main = styled.div`
         }
 
         &:disabled {
-            opacity: 0.8;
+            opacity: 0.7;
             cursor: default;
         }
     }
@@ -81,9 +103,9 @@ const Box = styled.form`
     align-items: center;
     justify-content: center;
     gap: 24px;
-`;
+    `;
 
-const Input = styled.input`
+    const Input = styled.input`
     width: 100%;
     height: 58px;
     font-family: 'Raleway', sans-serif;
@@ -120,7 +142,7 @@ const Button = styled.button`
         filter: brightness(1.2);
         cursor: pointer;
     }
-    
+
     &:disabled {
         filter: brightness(0.7);
         cursor: default;
