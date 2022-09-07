@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 
-function LoginPage() {
+function LogInPage() {
     return (
         <Main>
             <h1>MyWallet</h1>
@@ -35,7 +35,7 @@ function LoginPage() {
     );
 }
 
-export default LoginPage;
+export default LogInPage;
 
 const Main = styled.div`
     background-color: purple;
