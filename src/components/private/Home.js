@@ -1,56 +1,53 @@
 import React from "react";
 import styled from "styled-components";
-import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { postSignUp } from "../../services/mywallet";
+import { useState, useEffect } from "react";
+import { postLogin } from "../../services/mywallet";
 import Loading from "../commons/Loading";
 
-function SignUpPage() {
+function Home() {
     const navigate = useNavigate();
     const [sending, setSending] = useState(false);
-    const [registration, setRegistration] = useState({
+    const [login, setLogin] = useState({
         email: "",
-        name: "",
-        image: "",
         password: "",
-        passwordConfirmation: ""
     });
 
+    useEffect(() => {
+        if (localStorage.getItem('mywallet') !== null) {
+            navigate('/home');
+        }
+    }, []);
+
     function updateInput(e) {
-        setRegistration({ ...registration, [e.target.name]: e.target.value });
+        setLogin({ ...login, [e.target.name]: e.target.value });
     };
 
     function resetForm() {
-        setRegistration({
+        setLogin({
             email: "",
-            name: "",
-            image: "",
-            password: "",
-            passwordConfirmation: ""
+            password: ""
         });
         return setSending(false);
     }
 
-    function checkPassword(e) {
+    function logIn(e) {
         e.preventDefault();
         setSending(true);
-
-        if (registration.password !== registration.passwordConfirmation) {
-            alert('Por favor, confirme novamente a sua senha');
-            return resetForm();
-        } else {
-            signUp();
-        }
-      }
-
-    function signUp() {
-        postSignUp(registration)
-            .then(() => {
-                setSending(false);
-                return navigate('/');
-            })
+        postLogin(login)
+            .then(resposta => {
+                localStorage.setItem('mywallet', JSON.stringify({
+                    email: resposta.data.email,
+                    id: resposta.data.id,
+                    image: resposta.data.image,
+                    name: resposta.data.name,
+                    token: resposta.data.token,
+                    horario: +new Date()
+                }));
+                return navigate('/home');
+                })
             .catch(erro => {
-                alert('Não foi possível finalizar seu cadastro, tente novamente');
+                alert('Não foi possível logar, tente novamente');
                 console.log(erro);
                 return resetForm();
             });
@@ -58,60 +55,36 @@ function SignUpPage() {
 
     return (
         <Main>
-            <h1>MyWallet</h1>
+            <h1>Home</h1>
 
-            <Box onSubmit={checkPassword}>
+            <Box onSubmit={logIn}>
                 <Input
-                    disabled={sending}
-                    required
-                    type='text'
-                    name='name'
-                    value={registration.name}
-                    onChange={updateInput}
-                    placeholder='Nome'
-                />
-                <Input 
                     disabled={sending}
                     required
                     type='email'
                     name='email'
-                    value={registration.email}
+                    value={login.email}
                     onChange={updateInput}
                     placeholder='E-mail'
                 />
-                <Input 
+                <Input
                     disabled={sending}
                     required
                     type='password'
                     name='password'
-                    value={registration.password}
+                    value={login.password}
                     onChange={updateInput}
                     placeholder='Senha'
-                    onkeyup={checkPassword}
                 />
-                <Input 
-                    disabled={sending}
-                    required
-                    type='password'
-                    name='passwordConfirmation'
-                    value={registration.passwordConfirmation}
-                    onChange={updateInput}
-                    placeholder='Confirme a senha'
-                    onkeyup={checkPassword}
-                />
-                <Button type='submit' disabled={sending}> {sending ? <Loading /> : 'Entrar'} </Button>                    
+                <Button type='submit' disabled={sending}> {sending ? <Loading /> : 'Entrar'} </Button>
             </Box>
 
-            <Link to="/">
-                <h2>
-                    Já tem uma conta? Entre agora
-                </h2>
-            </Link>
+            <Link to="/sign-up"><h2>Primeira vez? Cadastre-se</h2></Link>
         </Main>
     );
 }
 
-export default SignUpPage;
+export default Home;
 
 const Main = styled.div`
     background-color: purple;
@@ -145,7 +118,7 @@ const Main = styled.div`
         }
 
         &:disabled {
-            opacity: 0.7;
+            opacity: 0.8;
             cursor: default;
         }
     }
@@ -157,9 +130,9 @@ const Box = styled.form`
     align-items: center;
     justify-content: center;
     gap: 24px;
-    `;
+`;
 
-    const Input = styled.input`
+const Input = styled.input`
     width: 100%;
     height: 58px;
     font-family: 'Raleway', sans-serif;
@@ -199,7 +172,7 @@ const Button = styled.button`
         filter: brightness(1.2);
         cursor: pointer;
     }
-
+    
     &:disabled {
         filter: brightness(0.7);
         cursor: default;

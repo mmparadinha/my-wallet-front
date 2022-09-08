@@ -1,9 +1,17 @@
+import { Puff } from  'react-loader-spinner';
+import React from 'react';
 
-
-function Loading() {
+export default function Loading() {
     return (
-        "Carregando"
+        <Puff
+        height="35"
+        width="35"
+        radius={1}
+        color="#FFFFFF"
+        ariaLabel="puff-loading"
+        wrapperStyle={{}}
+        wrapperClass=""
+        visible={true}
+    />
     );
-}
-
-export default Loading;
+};

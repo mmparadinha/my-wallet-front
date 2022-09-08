@@ -5,25 +5,38 @@ import { useState, useEffect } from "react";
 import { postLogin } from "../../services/mywallet";
 import Loading from "../commons/Loading";
 
-
 function LogInPage() {
-    const [loggingIn, setLoggingIn] = useState(false);
     const navigate = useNavigate();
+    const [sending, setSending] = useState(false);
     const [login, setLogin] = useState({
         email: "",
         password: "",
     });
 
+    useEffect(() => {
+        if (localStorage.getItem('mywallet') !== null) {
+            navigate('/home');
+        }
+    }, []);
+
     function updateInput(e) {
         setLogin({ ...login, [e.target.name]: e.target.value });
     };
 
-    function LogIn(e) {
+    function resetForm() {
+        setLogin({
+            email: "",
+            password: ""
+        });
+        return setSending(false);
+    }
+
+    function logIn(e) {
         e.preventDefault();
-        setLoggingIn(true);
+        setSending(true);
         postLogin(login)
             .then(resposta => {
-                localStorage.setItem('trackit', JSON.stringify({
+                localStorage.setItem('mywallet', JSON.stringify({
                     email: resposta.data.email,
                     id: resposta.data.id,
                     image: resposta.data.image,
@@ -31,16 +44,12 @@ function LogInPage() {
                     token: resposta.data.token,
                     horario: +new Date()
                 }));
-                navigate('/hoje');
+                return navigate('/home');
                 })
             .catch(erro => {
                 alert('Não foi possível logar, tente novamente');
                 console.log(erro);
-                setLogin({
-                    email: "",
-                    password: "",
-                });
-                setLoggingIn(false);
+                return resetForm();
             });
     };
 
@@ -48,9 +57,9 @@ function LogInPage() {
         <Main>
             <h1>MyWallet</h1>
 
-            <Box onSubmit={LogIn}>
+            <Box onSubmit={logIn}>
                 <Input
-                    disabled={loggingIn}
+                    disabled={sending}
                     required
                     type='email'
                     name='email'
@@ -59,7 +68,7 @@ function LogInPage() {
                     placeholder='E-mail'
                 />
                 <Input
-                    disabled={loggingIn}
+                    disabled={sending}
                     required
                     type='password'
                     name='password'
@@ -67,7 +76,7 @@ function LogInPage() {
                     onChange={updateInput}
                     placeholder='Senha'
                 />
-                <Button type='submit' disabled={loggingIn}> {loggingIn ? <Loading /> : 'Entrar'} </Button>
+                <Button type='submit' disabled={sending}> {sending ? <Loading /> : 'Entrar'} </Button>
             </Box>
 
             <Link to="/sign-up"><h2>Primeira vez? Cadastre-se</h2></Link>
@@ -155,6 +164,9 @@ const Button = styled.button`
     font-size: 20px;
     color: #FFFFFF;
     padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     &:hover {
         filter: brightness(1.2);
