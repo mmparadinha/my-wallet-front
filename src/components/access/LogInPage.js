@@ -28,7 +28,7 @@ function LogInPage() {
             email: "",
             password: ""
         });
-        return setSending(false);
+        setSending(false);
     }
 
     function logIn(e) {
@@ -44,12 +44,12 @@ function LogInPage() {
                     token: resposta.data.token,
                     horario: +new Date()
                 }));
-                return navigate('/home');
+                navigate('/home');
                 })
             .catch(erro => {
                 alert('Não foi possível logar, tente novamente');
                 console.log(erro);
-                return resetForm();
+                resetForm();
             });
     };
 
@@ -79,7 +79,11 @@ function LogInPage() {
                 <Button type='submit' disabled={sending}> {sending ? <Loading /> : 'Entrar'} </Button>
             </Box>
 
-            <Link to="/sign-up"><h2>Primeira vez? Cadastre-se</h2></Link>
+            <Link to="/sign-up">
+                <h3>
+                    Primeira vez? Cadastre-se
+                </h3>
+            </Link>
         </Main>
     );
 }
@@ -90,7 +94,7 @@ const Main = styled.div`
     background-color: purple;
     min-height: 100vh;
     margin: auto;
-    padding: 10%;
+    padding: 5%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -104,7 +108,7 @@ const Main = styled.div`
         margin-bottom: 24px;
     }
 
-    h2 {
+    h3 {
         font-family: 'Raleway', sans-serif;
         font-weight: 700;
         font-size: 15px;

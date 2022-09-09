@@ -8,7 +8,7 @@ function postSignUp(registration) {
 };
 
 function postLogin(login) {
-  const promise = axios.post(`${URL_BASE}`, login);
+  const promise = axios.post(`${URL_BASE}/`, login);
   return promise;
 };
 
@@ -20,4 +20,14 @@ function postLogin(login) {
 // //   return config;
 // // };
 
-export { postSignUp, postLogin };
+// function getTransaction(transaction) {
+  // const promise = axios.get(`${URL_BASE}/transactions`, transaction);
+  // return promise;
+// }
+
+function postTransaction(transaction) {
+  const promise = axios.post(`${URL_BASE}/transactions`, transaction);
+  return promise;
+};
+
+export { postSignUp, postLogin, postTransaction };

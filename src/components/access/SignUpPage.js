@@ -22,13 +22,12 @@ function SignUpPage() {
 
     function resetForm() {
         setRegistration({
-            email: "",
             name: "",
-            image: "",
+            email: "",
             password: "",
             passwordConfirmation: ""
         });
-        return setSending(false);
+        setSending(false);
     }
 
     function checkPassword(e) {
@@ -37,7 +36,7 @@ function SignUpPage() {
 
         if (registration.password !== registration.passwordConfirmation) {
             alert('Por favor, confirme novamente a sua senha');
-            return resetForm();
+            resetForm();
         } else {
             signUp();
         }
@@ -47,12 +46,12 @@ function SignUpPage() {
         postSignUp(registration)
             .then(() => {
                 setSending(false);
-                return navigate('/');
+                navigate('/');
             })
             .catch(erro => {
                 alert('Não foi possível finalizar seu cadastro, tente novamente');
                 console.log(erro);
-                return resetForm();
+                resetForm();
             });
     };
 
@@ -103,9 +102,9 @@ function SignUpPage() {
             </Box>
 
             <Link to="/">
-                <h2>
+                <h3>
                     Já tem uma conta? Entre agora
-                </h2>
+                </h3>
             </Link>
         </Main>
     );
@@ -117,7 +116,7 @@ const Main = styled.div`
     background-color: purple;
     min-height: 100vh;
     margin: auto;
-    padding: 10%;
+    padding: 5%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -131,7 +130,7 @@ const Main = styled.div`
         margin-bottom: 24px;
     }
 
-    h2 {
+    h3 {
         font-family: 'Raleway', sans-serif;
         font-weight: 700;
         font-size: 15px;
