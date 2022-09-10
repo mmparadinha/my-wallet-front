@@ -11,9 +11,8 @@ function SignUpPage() {
     const [registration, setRegistration] = useState({
         email: "",
         name: "",
-        image: "",
         password: "",
-        passwordConfirmation: ""
+        password_confirmation: ""
     });
 
     function updateInput(e) {
@@ -25,24 +24,14 @@ function SignUpPage() {
             name: "",
             email: "",
             password: "",
-            passwordConfirmation: ""
+            password_confirmation: ""
         });
         setSending(false);
     }
 
-    function checkPassword(e) {
-        e.preventDefault();
+    function signUp(e) {
+        e.preventDefault(e);
         setSending(true);
-
-        if (registration.password !== registration.passwordConfirmation) {
-            alert('Por favor, confirme novamente a sua senha');
-            resetForm();
-        } else {
-            signUp();
-        }
-      }
-
-    function signUp() {
         postSignUp(registration)
             .then(() => {
                 setSending(false);
@@ -59,7 +48,7 @@ function SignUpPage() {
         <Main>
             <h1>MyWallet</h1>
 
-            <Box onSubmit={checkPassword}>
+            <Box onSubmit={signUp}>
                 <Input
                     disabled={sending}
                     required
@@ -86,19 +75,17 @@ function SignUpPage() {
                     value={registration.password}
                     onChange={updateInput}
                     placeholder='Senha'
-                    onkeyup={checkPassword}
                 />
                 <Input 
                     disabled={sending}
                     required
                     type='password'
-                    name='passwordConfirmation'
-                    value={registration.passwordConfirmation}
+                    name='password_confirmation'
+                    value={registration.password_confirmation}
                     onChange={updateInput}
                     placeholder='Confirme a senha'
-                    onkeyup={checkPassword}
                 />
-                <Button type='submit' disabled={sending}> {sending ? <Loading /> : 'Entrar'} </Button>                    
+                <Button type='submit' disabled={sending}> {sending ? <Loading /> : 'Cadastrar'} </Button>                    
             </Box>
 
             <Link to="/">

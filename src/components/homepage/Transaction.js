@@ -9,7 +9,7 @@ export default function Transaction() {
                         <TransactionDate>30/11</TransactionDate>
                         <TransactionDescription>Almoço mãe</TransactionDescription>
                     </div>
-                    <TransactionValue type={type}>39,90</TransactionValue>
+                    <TransactionValue>39,90</TransactionValue>
             </Container>
             <Container>
                 <div>

@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-const URL_BASE = 'localhost:27017/';
+const URL_BASE = '127.0.0.1:5000';
 
 function postSignUp(registration) {
-  const promise = axios.post(`${URL_BASE}/sign-up`, registration);
+  const promise = axios.post(`${URL_BASE}/users`, registration);
   return promise;
 };
 
