@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { postTransaction } from "../../services/mywallet";
 import Loading from "../commons/Loading";
+import { GiCancel } from 'react-icons/gi';
 
 function NewIncome() {
     const navigate = useNavigate();
@@ -42,6 +43,7 @@ function NewIncome() {
         <Main>
             <Header>
                 <h2>Nova entrada</h2>
+                <CancelIcon onClick={() => navigate('/home')}/>
             </Header>
 
             <Box onSubmit={sendTransaction}>
@@ -93,6 +95,15 @@ const Header = styled.div`
     h2 {
         font-weight: 700;
         font-size: 26px;
+    }
+`;
+
+const CancelIcon = styled(GiCancel)`
+    font-size: 24px;
+    color: #FFFFFF;
+
+    &:hover {
+        cursor: pointer;
     }
 `;
 

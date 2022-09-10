@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { postTransaction } from "../../services/mywallet";
 import Loading from "../commons/Loading";
+import { GiCancel } from 'react-icons/gi';
 
 function EditIncome() {
     const navigate = useNavigate();
@@ -32,7 +33,7 @@ function EditIncome() {
         postTransaction(transaction)
             .then(() => navigate('/home'))
             .catch(erro => {
-                alert('Não foi possível editar a saída');
+                alert('Não foi possível editar a entrada');
                 console.log(erro);
                 resetForm();
             });
@@ -41,7 +42,8 @@ function EditIncome() {
     return (
         <Main>
             <Header>
-                <h2>Editar saída</h2>
+                <h2>Editar entrada</h2>
+                <CancelIcon onClick={() => navigate('/home')}/>
             </Header>
 
             <Box onSubmit={sendTransaction}>
@@ -63,7 +65,7 @@ function EditIncome() {
                     onChange={updateInput}
                     placeholder='Descrição'
                 />
-                <Button type='submit' disabled={sending}> {sending ? <Loading /> : 'Salvar saída'} </Button>
+                <Button type='submit' disabled={sending}> {sending ? <Loading /> : 'Editar entrada'} </Button>
             </Box>
         </Main>
     );
@@ -93,6 +95,15 @@ const Header = styled.div`
     h2 {
         font-weight: 700;
         font-size: 26px;
+    }
+`;
+
+const CancelIcon = styled(GiCancel)`
+    font-size: 24px;
+    color: #FFFFFF;
+
+    &:hover {
+        cursor: pointer;
     }
 `;
 

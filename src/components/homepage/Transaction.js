@@ -1,4 +1,3 @@
-
 import React from "react";
 import styled from "styled-components";
 
@@ -10,7 +9,7 @@ export default function Transaction() {
                         <TransactionDate>30/11</TransactionDate>
                         <TransactionDescription>Almoço mãe</TransactionDescription>
                     </div>
-                    <TransactionValue>39,90</TransactionValue>
+                    <TransactionValue type={type}>39,90</TransactionValue>
             </Container>
             <Container>
                 <div>
