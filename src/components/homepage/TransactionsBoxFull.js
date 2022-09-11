@@ -1,19 +1,61 @@
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Transaction from "./Transaction";
+import { getTransactions } from "../../services/mywallet";
 
 export default function TransactionsBoxFull() {
+    const [ balance, setBalance ] = useState(0);
+    const [ transactions, setTransactions ] = useState([
+        {
+            date: '30/11',
+            value: 30.22,
+            description: "almoço mãe",
+            type: 'expense',
+            // PUXAR DO CONTEXT userId: _id
+        },
+        {
+            date: '03/12',
+            value: 632.00,
+            description: "salário",
+            type: 'income',
+            // PUXAR DO CONTEXT userId: _id
+        }
+    ]);
+
+    useEffect(() => {
+        getTransactions()
+            .then(resposta => {
+                setTransactions(resposta.data)
+            }
+            )
+            .catch(erro => console.log(erro));
+    },
+    []);
+
+    useEffect(() => {
+        let temp = 0;
+
+        transactions.forEach((data) => {
+        if (data.type === 'income') {
+            temp = temp + data.value;
+        } else {
+            temp = temp - data.value;
+        }
+        });
+
+        setBalance(temp);
+    },
+    [transactions]);
 
     return(
         <TransactionsBox>
             <TransactionsContainer>
-                {/* transaction map */}
-                <Transaction/>
+                {transactions.map((data, index) => <Transaction key={index} data={data}/>)}
             </TransactionsContainer>
             <div>
                 <Balance>Saldo</Balance>
-                <BalanceValue>500</BalanceValue>
+                <BalanceValue>{balance.toFixed(2)}</BalanceValue>
             </div>
         </TransactionsBox>
     )

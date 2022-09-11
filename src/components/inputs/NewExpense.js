@@ -10,9 +10,11 @@ function NewExpense() {
     const navigate = useNavigate();
     const [sending, setSending] = useState(false);
     const [transaction, setTransaction] = useState({
-        value: "",
+        //date: dayjs(DD/MM),
+        value: '',
         description: "",
-        type: 'expense'
+        type: 'expense',
+        // PUXAR DO CONTEXT userId: _id
     });
 
     function updateInput(e) {
@@ -30,7 +32,9 @@ function NewExpense() {
     function sendTransaction(e) {
         e.preventDefault();
         setSending(true);
-        postTransaction(transaction)
+        postTransaction({
+            ...transaction, value: Number(transaction.value)
+            })
             .then(() => navigate('/home'))
             .catch(erro => {
                 alert('Não foi possível registrar a nova saída');

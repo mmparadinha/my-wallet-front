@@ -1,22 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 
-export default function Transaction() {
+export default function Transaction({ data }) {
     return(
         <>
             <Container onClick={() => console.log('editar')}>
                     <div>
-                        <TransactionDate>30/11</TransactionDate>
-                        <TransactionDescription>Almoço mãe</TransactionDescription>
+                        <TransactionDate>{data.date}</TransactionDate>
+                        <TransactionDescription>{data.description}</TransactionDescription>
                     </div>
-                    <TransactionValue>39,90</TransactionValue>
-            </Container>
-            <Container>
-                <div>
-                    <TransactionDate>01/12</TransactionDate>
-                    <TransactionDescription>Salário</TransactionDescription>
-                </div>
-                <TransactionValue>1863,21</TransactionValue>
+                    <TransactionValue type={data.type}>{data.value.toFixed(2)}</TransactionValue>
             </Container>
         </>
     )
@@ -45,5 +38,5 @@ const TransactionDescription = styled.span`
 `;
 
 const TransactionValue = styled.span`
-    color: #C70000;
+    color: ${props => props.type === 'income' ? '#03AC00' : '#C70000'};
 `;

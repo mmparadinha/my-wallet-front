@@ -12,22 +12,27 @@ function postLogin(login) {
   return promise;
 };
 
-// // function Header() {
-// //   const autenticador = JSON.parse(localStorage.getItem('trackit'));
-// //   const config = {
-// //     headers: { Authorization: `Bearer ${autenticador.token}` }
-// //   };
-// //   return config;
-// // };
+function Header() {
+  const authorization = JSON.parse(localStorage.getItem('mywallet'));
+  const config = {
+    headers: {
+      authorization: `Bearer ${authorization.token}`,
+      userId: authorization.userId 
+  }
+  };
+  return config;
+};
 
-// function getTransaction(transaction) {
-  // const promise = axios.get(`${URL_BASE}/transactions`, transaction);
-  // return promise;
-// }
+function getTransactions() {
+  const config = Header();
+  const promise = axios.get(`${URL_BASE}/transactions`, '', config);
+  return promise;
+}
 
 function postTransaction(transaction) {
-  const promise = axios.post(`${URL_BASE}/transactions`, transaction);
+  const config = Header();
+  const promise = axios.post(`${URL_BASE}/transactions`, transaction, config);
   return promise;
 };
 
-export { postSignUp, postLogin, postTransaction };
+export { postSignUp, postLogin, getTransactions, postTransaction };

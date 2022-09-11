@@ -4,17 +4,17 @@ import React from "react";
 
 function PrivatePages({children}) {
     const navigate = useNavigate();
-    const usuario = JSON.parse(localStorage.getItem('mywallet'));
+    const authenticator = JSON.parse(localStorage.getItem('mywallet'));
 
     useEffect(() => {
-        if (usuario === null) {
+        if (authenticator.token === null) {
             alert('Não autorizado, favor refazer o login');
             localStorage.clear('mywallet');
             navigate('/');
-        }}
-    );
+        }},
+    []);
 
-    if (usuario !== null) {
+    if (authenticator.token !== null) {
         return (
             <>
                 {children}

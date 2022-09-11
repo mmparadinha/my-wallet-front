@@ -37,12 +37,8 @@ function LogInPage() {
         postLogin(login)
             .then(resposta => {
                 localStorage.setItem('mywallet', JSON.stringify({
-                    email: resposta.data.email,
-                    id: resposta.data.id,
-                    image: resposta.data.image,
-                    name: resposta.data.name,
-                    token: resposta.data.token,
-                    horario: +new Date()
+                    userId: resposta.data.userID,                    
+                    token: resposta.data.token
                 }));
                 navigate('/home');
                 })
