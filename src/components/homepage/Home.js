@@ -14,7 +14,10 @@ function Home() {
         <Main>
             <Header>
                 <h2>Olá, ${'fulano'}</h2>
-                <LogoutIcon onClick={() => navigate('/')}/>
+                <LogoutIcon onClick={() => {
+                    localStorage.clear();
+                    navigate('/')
+                }}/>
             </Header>
 
             {mov ? <TransactionsBoxFull/> : <TransactionsBoxEmpty/>}

@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-const URL_BASE = '127.0.0.1:5000';
+const URL_BASE = 'http://127.0.0.1:5000';
 
 function postSignUp(registration) {
-  const promise = axios.post(`${URL_BASE}/users`, registration);
+  const promise = axios.post(`${URL_BASE}/sign-up`, registration);
   return promise;
 };
 
@@ -17,21 +17,20 @@ function Header() {
   const config = {
     headers: {
       authorization: `Bearer ${authorization.token}`,
-      userId: authorization.userId 
-  }
+      userid: authorization.userId 
+    }
   };
   return config;
 };
 
 function getTransactions() {
   const config = Header();
-  const promise = axios.get(`${URL_BASE}/transactions`, '', config);
+  const promise = axios.get(`${URL_BASE}/transaction`, '', config);
   return promise;
 }
 
 function postTransaction(transaction) {
-  const config = Header();
-  const promise = axios.post(`${URL_BASE}/transactions`, transaction, config);
+  const promise = axios.post(`${URL_BASE}/transaction`, transaction);
   return promise;
 };
 
