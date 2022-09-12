@@ -1,10 +1,19 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 export default function Transaction({ data }) {
+    const navigate = useNavigate();
+
     return(
         <>
-            <Container onClick={() => console.log('editar')}>
+            <Container onClick={() => {
+                if (data.type === 'income') {
+                    navigate('/editincome');
+                } else {
+                    navigate('/editexpense');
+                }
+            }}>
                     <div>
                         <TransactionDate>{data.date}</TransactionDate>
                         <TransactionDescription>{data.description}</TransactionDescription>

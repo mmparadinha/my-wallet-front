@@ -37,7 +37,7 @@ function LogInPage() {
         postLogin(login)
             .then(resposta => {
                 localStorage.setItem('mywallet', JSON.stringify({
-                    userId: resposta.data.userID,                    
+                    userId: resposta.data.userId,                    
                     token: resposta.data.token
                 }));
                 navigate('/home');

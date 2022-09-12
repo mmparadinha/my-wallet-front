@@ -10,13 +10,11 @@ function NewExpense() {
     const navigate = useNavigate();
     const [sending, setSending] = useState(false);
     const [transaction, setTransaction] = useState({
-        //date: dayjs(DD/MM),
         value: '',
-        description: "",
+        description: '',
         type: 'expense',
-        // PUXAR DO CONTEXT userId: _id
     });
-
+    
     function updateInput(e) {
         setTransaction({ ...transaction, [e.target.name]: e.target.value });
     };

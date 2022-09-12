@@ -17,7 +17,7 @@ function Header() {
   const config = {
     headers: {
       authorization: `Bearer ${authorization.token}`,
-      userid: authorization.userId 
+      userId: authorization.userId
     }
   };
   return config;
@@ -25,12 +25,13 @@ function Header() {
 
 function getTransactions() {
   const config = Header();
-  const promise = axios.get(`${URL_BASE}/transaction`, '', config);
+  const promise = axios.get(`${URL_BASE}/transaction`, config);
   return promise;
 }
 
 function postTransaction(transaction) {
-  const promise = axios.post(`${URL_BASE}/transaction`, transaction);
+  const config = Header();
+  const promise = axios.post(`${URL_BASE}/transaction`, transaction, config);
   return promise;
 };
 

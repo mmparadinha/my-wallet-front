@@ -10,8 +10,8 @@ function NewIncome() {
     const navigate = useNavigate();
     const [sending, setSending] = useState(false);
     const [transaction, setTransaction] = useState({
-        value: "",
-        description: "",
+        value: '',
+        description: '',
         type: 'income'
     });
 
@@ -21,8 +21,8 @@ function NewIncome() {
 
     function resetForm() {
         setTransaction({
-            value: "",
-            description: ""
+            value: '',
+            description: ''
         });
         setSending(false);
     }
@@ -30,7 +30,9 @@ function NewIncome() {
     function sendTransaction(e) {
         e.preventDefault();
         setSending(true);
-        postTransaction(transaction)
+        postTransaction({
+            ...transaction, value: Number(transaction.value)
+            })
             .then(() => navigate('/home'))
             .catch(erro => {
                 alert('Não foi possível registrar a nova entrada');

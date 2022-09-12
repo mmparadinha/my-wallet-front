@@ -1,14 +1,26 @@
-import React from "react";
+import React, { useEffect, useContext} from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { RiLogoutCircleRLine } from 'react-icons/ri';
 import { BiPlusCircle, BiMinusCircle } from 'react-icons/bi';
 import TransactionsBoxFull from "./TransactionsBoxFull";
 import TransactionsBoxEmpty from "./TransactionsBoxEmpty";
+import TransactionsContext from "../contexts/TransactionsContext";
+import { getTransactions } from "../../services/mywallet";
 
 function Home() {
     const navigate = useNavigate();
-    const mov = [];
+    const { transactions, setTransactions } = useContext(TransactionsContext);
+
+    useEffect(() => {
+        getTransactions()
+            .then(resposta => {
+                setTransactions(resposta.data);
+            }
+            )
+            .catch(erro => console.log(erro));
+    },
+    []);
 
     return (
         <Main>
@@ -20,7 +32,7 @@ function Home() {
                 }}/>
             </Header>
 
-            {mov ? <TransactionsBoxFull/> : <TransactionsBoxEmpty/>}
+            {transactions.length !== 0 ? <TransactionsBoxFull/> : <TransactionsBoxEmpty/>}
 
             <ButtonsBox>
                 <button onClick={() => navigate('/newincome')}>

@@ -1,37 +1,12 @@
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
 import Transaction from "./Transaction";
-import { getTransactions } from "../../services/mywallet";
+import TransactionsContext from "../contexts/TransactionsContext";
 
 export default function TransactionsBoxFull() {
     const [ balance, setBalance ] = useState(0);
-    const [ transactions, setTransactions ] = useState([
-        {
-            date: '30/11',
-            value: 30.22,
-            description: "almoço mãe",
-            type: 'expense',
-            // PUXAR DO CONTEXT userId: _id
-        },
-        {
-            date: '03/12',
-            value: 632.00,
-            description: "salário",
-            type: 'income',
-            // PUXAR DO CONTEXT userId: _id
-        }
-    ]);
-
-    useEffect(() => {
-        getTransactions()
-            .then(resposta => {
-                setTransactions(resposta.data)
-            }
-            )
-            .catch(erro => console.log(erro));
-    },
-    []);
+    const { transactions } = useContext(TransactionsContext);
 
     useEffect(() => {
         let temp = 0;
@@ -55,7 +30,7 @@ export default function TransactionsBoxFull() {
             </TransactionsContainer>
             <div>
                 <Balance>Saldo</Balance>
-                <BalanceValue>{balance.toFixed(2)}</BalanceValue>
+                <BalanceValue balance={balance}>{Math.abs(balance).toFixed(2)}</BalanceValue>
             </div>
         </TransactionsBox>
     )
@@ -92,5 +67,5 @@ const Balance = styled.span`
 const BalanceValue = styled.span`
     font-size: 17px;
     font-weight: 400;
-    color: #03AC00;
+    color: ${props => props.balance >= 0 ? '#03AC00' : '#C70000'};
 `;
