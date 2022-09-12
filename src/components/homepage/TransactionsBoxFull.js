@@ -62,6 +62,8 @@ const TransactionsContainer = styled.div`
 const BalanceContainer = styled.div`
     border-top: 1px solid #000000;
     font-size: 17px;
+    align-items: center;
+    min-height: 30px;
 `;
 
 const Balance = styled.span`

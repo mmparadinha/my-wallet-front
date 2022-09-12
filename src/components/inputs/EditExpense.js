@@ -1,18 +1,19 @@
 import React from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
-import { postTransaction } from "../../services/mywallet";
+import { putTransaction } from "../../services/mywallet";
 import Loading from "../commons/Loading";
 import { GiCancel } from 'react-icons/gi';
 
 function EditExpense() {
+    const _id = useLocation().state;
     const navigate = useNavigate();
     const [sending, setSending] = useState(false);
     const [transaction, setTransaction] = useState({
         value: "",
         description: "",
-        type: 'expense'
+        _id
     });
 
     function updateInput(e) {
@@ -30,7 +31,9 @@ function EditExpense() {
     function sendTransaction(e) {
         e.preventDefault();
         setSending(true);
-        postTransaction(transaction)
+        putTransaction({
+            ...transaction, value: Number(transaction.value)
+            })
             .then(() => navigate('/home'))
             .catch(erro => {
                 alert('Não foi possível editar a saída');

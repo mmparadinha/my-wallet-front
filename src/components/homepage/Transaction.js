@@ -5,15 +5,17 @@ import styled from "styled-components";
 export default function Transaction({ data }) {
     const navigate = useNavigate();
 
+    function editTransaction() {
+        if (data.type === 'income') {
+            navigate('/editincome/', {state: data._id });
+        } else {
+            navigate('/editexpense/', {state: data._id });
+        }
+    }
+
     return(
         <>
-            <Container onClick={() => {
-                if (data.type === 'income') {
-                    navigate('/editincome');
-                } else {
-                    navigate('/editexpense');
-                }
-            }}>
+            <Container onClick={() => editTransaction()}>
                     <div>
                         <TransactionDate>{data.date}</TransactionDate>
                         <TransactionDescription>{data.description}</TransactionDescription>

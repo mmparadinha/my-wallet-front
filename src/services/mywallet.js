@@ -35,4 +35,10 @@ function postTransaction(transaction) {
   return promise;
 };
 
-export { postSignUp, postLogin, getTransactions, postTransaction };
+function putTransaction(transaction) {
+  const config = Header();
+  const promise = axios.put(`${URL_BASE}/transaction`, transaction, config);
+  return promise;
+};
+
+export { postSignUp, postLogin, getTransactions, postTransaction, putTransaction };

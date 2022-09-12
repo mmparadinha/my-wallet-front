@@ -28,7 +28,7 @@ function Home() {
             <Header>
                 <h2>{`Olá, ${username}`}</h2>
                 <LogoutIcon onClick={() => {
-                    localStorage.clear();
+                    localStorage.removeItem('mywallet');
                     navigate('/')
                 }}/>
             </Header>
