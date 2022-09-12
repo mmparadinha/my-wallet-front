@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { deleteTransaction } from '../../services/mywallet.js';
 
 export default function Transaction({ data }) {
     const navigate = useNavigate();
@@ -13,14 +14,28 @@ export default function Transaction({ data }) {
         }
     }
 
+    function removeTransaction() {
+        if (window.confirm('Você realmente deseja excluir essa transação?')) {
+            deleteTransaction(data._id)
+                .then(() => document.location.reload())
+                .catch(erro => {
+                    alert('Não foi possível apagar a transação');
+                    console.log(erro);
+            });
+        }
+    }
+
     return(
         <>
-            <Container onClick={() => editTransaction()}>
+            <Container>
                     <div>
                         <TransactionDate>{data.date}</TransactionDate>
-                        <TransactionDescription>{data.description}</TransactionDescription>
+                        <TransactionDescription onClick={() => editTransaction()}>{data.description}</TransactionDescription>
                     </div>
-                    <TransactionValue type={data.type}>{data.value.toFixed(2)}</TransactionValue>
+                    <div>
+                        <TransactionValue type={data.type} onClick={() => editTransaction()}>{data.value.toFixed(2)}</TransactionValue>
+                        <TransactionDate onClick={() => removeTransaction()}>x</TransactionDate>
+                    </div>
             </Container>
         </>
     )
@@ -29,6 +44,7 @@ export default function Transaction({ data }) {
 const Container = styled.div`
     font-weight: 400;
     font-size: 16px;
+    gap: 8px;
 
     div {
         gap: 10px;

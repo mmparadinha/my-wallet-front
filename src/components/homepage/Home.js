@@ -33,7 +33,7 @@ function Home() {
                 }}/>
             </Header>
 
-            {transactions.length !== 0 ? <TransactionsBoxFull/> : <TransactionsBoxEmpty/>}
+            {transactions.length && transactions.length !== 0 ? <TransactionsBoxFull/> : <TransactionsBoxEmpty/>}
 
             <ButtonsBox>
                 <button onClick={() => navigate('/newincome')}>

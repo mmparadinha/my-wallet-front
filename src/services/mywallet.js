@@ -41,4 +41,10 @@ function putTransaction(transaction) {
   return promise;
 };
 
-export { postSignUp, postLogin, getTransactions, postTransaction, putTransaction };
+function deleteTransaction(transactionId) {
+  const config = Header();
+  const promise = axios.delete(`${URL_BASE}/transaction/${transactionId}`, config);
+  return promise;
+};
+
+export { postSignUp, postLogin, getTransactions, postTransaction, putTransaction, deleteTransaction };

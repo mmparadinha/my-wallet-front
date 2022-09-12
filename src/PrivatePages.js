@@ -1,28 +1,24 @@
-import { useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import React from "react";
 
-function PrivatePages({children}) {
+function PrivatePages() {
     const navigate = useNavigate();
-    const authenticator = JSON.parse(localStorage.getItem('mywallet'));
+    const { token } = JSON.parse(localStorage.getItem('mywallet'));
 
     useEffect(() => {
-        if (authenticator.token === null) {
+        if (token === null) {
             alert('Não autorizado, favor refazer o login');
             localStorage.clear('mywallet');
             navigate('/');
         }},
     []);
 
-    if (authenticator.token !== null) {
-        return (
-            <>
-                {children}
-            </>
-        );
-    } else {
-        localStorage.clear('mywallet');
-    };
+    return (
+        <>
+            {token !== null ? <Outlet/> : navigate('/')}
+        </>
+    );
 };
 
 export default PrivatePages;

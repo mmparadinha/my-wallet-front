@@ -22,32 +22,13 @@ function App() {
           <Routes>
             <Route path="/" element={<LogInPage />} />
             <Route path="/sign-up" element={<SignUpPage />} />
-            <Route path="/home" element={
-              <PrivatePages>
-                <Home />
-              </PrivatePages>
-            } />
-            <Route path="/newincome" element={
-              <PrivatePages>
-                <NewIncome />
-              </PrivatePages>
-            } />
-            <Route path="/newexpense" element={
-              <PrivatePages>
-                <NewExpense />
-              </PrivatePages>
-            } />
-            <Route path="/editincome" element={
-              <PrivatePages>
-                <EditIncome />
-              </PrivatePages>
-            } />
-            <Route path="/editexpense" element={
-              <PrivatePages>
-                <EditExpense />
-              </PrivatePages>
-            } />
-
+            <Route element={<PrivatePages/>}>
+              <Route path="/home" element={<Home />} />
+              <Route path="/newincome" element={<NewIncome />} />
+              <Route path="/newexpense" element={<NewExpense />} />
+              <Route path="/editincome" element={<EditIncome />} />
+              <Route path="/editexpense" element={<EditExpense />} />
+            </Route>
           </Routes>
         </BrowserRouter>
       </TransactionsContext.Provider>
