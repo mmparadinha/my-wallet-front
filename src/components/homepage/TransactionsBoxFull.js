@@ -28,10 +28,10 @@ export default function TransactionsBoxFull() {
             <TransactionsContainer>
                 {transactions.map((data, index) => <Transaction key={index} data={data}/>)}
             </TransactionsContainer>
-            <div>
+            <BalanceContainer>
                 <Balance>Saldo</Balance>
                 <BalanceValue balance={balance}>{Math.abs(balance).toFixed(2)}</BalanceValue>
-            </div>
+            </BalanceContainer>
         </TransactionsBox>
     )
 }
@@ -42,6 +42,7 @@ const TransactionsBox = styled.div`
     margin-bottom: 15px;
     padding: 10px;
     border-radius: 5px;
+    gap: 15px;
     background-color: #FFFFFF;
     display: flex;
     flex-direction: column;
@@ -58,14 +59,17 @@ const TransactionsContainer = styled.div`
     gap: 10px;
 `;
 
-const Balance = styled.span`
+const BalanceContainer = styled.div`
+    border-top: 1px solid #000000;
     font-size: 17px;
+`;
+
+const Balance = styled.span`
     font-weight: 700;
     color: #000000;
 `;
 
 const BalanceValue = styled.span`
-    font-size: 17px;
     font-weight: 400;
     color: ${props => props.balance >= 0 ? '#03AC00' : '#C70000'};
 `;

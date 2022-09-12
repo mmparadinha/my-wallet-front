@@ -38,7 +38,8 @@ function LogInPage() {
             .then(resposta => {
                 localStorage.setItem('mywallet', JSON.stringify({
                     userId: resposta.data.userId,                    
-                    token: resposta.data.token
+                    token: resposta.data.token,
+                    username: resposta.data.username
                 }));
                 navigate('/home');
                 })

@@ -11,6 +11,7 @@ import { getTransactions } from "../../services/mywallet";
 function Home() {
     const navigate = useNavigate();
     const { transactions, setTransactions } = useContext(TransactionsContext);
+    const { username } = JSON.parse(localStorage.getItem('mywallet'));
 
     useEffect(() => {
         getTransactions()
@@ -25,7 +26,7 @@ function Home() {
     return (
         <Main>
             <Header>
-                <h2>Olá, ${'fulano'}</h2>
+                <h2>{`Olá, ${username}`}</h2>
                 <LogoutIcon onClick={() => {
                     localStorage.clear();
                     navigate('/')
