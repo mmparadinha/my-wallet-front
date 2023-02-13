@@ -22,10 +22,3 @@ MyWallet is your way to go!
 ## Built With
 <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="react logo"/> <img src="https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white" alt="styled-components logo"/> 
 
-
-
-## How to run
-
-Clone this repository, clone the [back-end repository](https://github.com/mmparadinha/mywallet-back), run* both and start testing the app!
-
-*run this one with the "start" script
